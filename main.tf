@@ -179,7 +179,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_role_attachment" {
 
 # Create an EKS cluster
  resource "aws_eks_cluster" "mopops1_cluster" {
-    count = var.create_eks_cluster ? 1 : 0
+    count = var.create_eks_cluster && data.aws_eks_cluster.existing_cluster[0] == null ? 1 : 0
     name = "mopops1_cluster"
   role_arn = aws_iam_role.mp1-eks_cluster_role.arn
   version  = "1.26"
@@ -239,7 +239,7 @@ resource "aws_iam_role_policy_attachment" "eks_ec2CR_policy_attachment" {
 
 # Create the EKS node group
 resource "aws_eks_node_group" "eks_node" {
-  count = var.create_eks_cluster ? 1 : 0
+  count = var.create_eks_cluster && data.aws_eks_cluster.existing_cluster[0] == null ? 1 : 0
   cluster_name    = aws_eks_cluster.mopops1_cluster.name
   node_group_name = "eks_node"
   node_role_arn   = aws_iam_role.mp1-eks_worker_node_role.arn

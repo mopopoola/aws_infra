@@ -173,8 +173,8 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_role_attachment" {
 }
 
 # Create an EKS cluster
-resource "aws_eks_cluster" "mopops_cluster" {
-  name     = "mopops_cluster"
+resource "aws_eks_cluster" "mopops1_cluster" {
+  name     = "mopops1_cluster"
   role_arn = aws_iam_role.mp1-eks_cluster_role.arn
   version  = "1.26"
 
@@ -192,7 +192,7 @@ resource "aws_eks_cluster" "mopops_cluster" {
 
 # Export the kubeconfig for the EKS cluster
 # output "kubeconfig" {
-#  value = aws_eks_cluster.mopops_cluster.kubeconfig
+#  value = aws_eks_cluster.mopops1_cluster.kubeconfig
 #}
 
 
@@ -235,7 +235,7 @@ resource "aws_iam_role_policy_attachment" "eks_ec2CR_policy_attachment" {
 
 # Create the EKS node group
 resource "aws_eks_node_group" "eks_node" {
-  cluster_name    = aws_eks_cluster.mopops_cluster.name
+  cluster_name    = aws_eks_cluster.mopops1_cluster.name
   node_group_name = "eks_node"
   node_role_arn   = aws_iam_role.mp1-eks_worker_node_role.arn
 

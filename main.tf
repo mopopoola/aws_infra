@@ -188,7 +188,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_role_attachment" {
   #depends_on = [
    # aws_iam_role_policy_attachment.eks_cluster_role_attachment
   #]
-#}
+}
 
  #Export the kubeconfig for the EKS cluster
  #output "kubeconfig" {

@@ -190,10 +190,10 @@ resource "aws_eks_cluster" "mopops1_cluster" {
   ]
 }
 
-# Export the kubeconfig for the EKS cluster
-# output "kubeconfig" {
-#  value = aws_eks_cluster.mopops1_cluster.kubeconfig
-#}
+ Export the kubeconfig for the EKS cluster
+ output "kubeconfig" {
+ value = aws_eks_cluster.mopops1_cluster.kubeconfig
+}
 
 
 

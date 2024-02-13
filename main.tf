@@ -149,10 +149,6 @@ resource "aws_route_table_association" "private_subnet_route_table_association_2
   route_table_id = aws_route_table.private_subnet_route_table.id
 }
 
-# Check if the EKS cluster already exists
-data "aws_eks_cluster" "existing_cluster" {
-  name = "mopops1_cluster"
-}
 
 # Create an IAM role for the EKS cluster
 resource "aws_iam_role" "mp1-eks_cluster_role" {
@@ -179,8 +175,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_role_attachment" {
 
 # Create an EKS cluster
  resource "aws_eks_cluster" "mopops1_cluster" {
-    count = var.create_eks_cluster && data.aws_eks_cluster.existing_cluster == null ? 1 : 0
-    name = "mopops1_cluster"
+  name = "mopops1_cluster"
   role_arn = aws_iam_role.mp1-eks_cluster_role.arn
   version  = "1.26"
 
@@ -239,7 +234,6 @@ resource "aws_iam_role_policy_attachment" "eks_ec2CR_policy_attachment" {
 
 # Create the EKS node group
 resource "aws_eks_node_group" "eks_node" {
-  count = var.create_eks_cluster && data.aws_eks_cluster.existing_cluster == null ? 1 : 0
   cluster_name    = aws_eks_cluster.mopops1_cluster.name
   node_group_name = "eks_node"
   node_role_arn   = aws_iam_role.mp1-eks_worker_node_role.arn

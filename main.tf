@@ -173,22 +173,22 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_role_attachment" {
 }
 
 # Create an EKS cluster
-resource "aws_eks_cluster" "mopops1_cluster" {
-  name     = "mopops1_cluster"
-  role_arn = aws_iam_role.mp1-eks_cluster_role.arn
-  version  = "1.26"
+#resource "aws_eks_cluster" "mopops1_cluster" {
+ # name     = "mopops1_cluster"
+  #role_arn = aws_iam_role.mp1-eks_cluster_role.arn
+  #version  = "1.26"
 
-  vpc_config {
-    subnet_ids = [aws_subnet.eks_priv_sub_one.id,
-      aws_subnet.eks_priv_sub_two.id,
-      aws_subnet.eks_pub_sub_one.id,
-    aws_subnet.eks_pub_sub_two.id]
-  }
+  #vpc_config {
+   # subnet_ids = [aws_subnet.eks_priv_sub_one.id,
+    #  aws_subnet.eks_priv_sub_two.id,
+     # aws_subnet.eks_pub_sub_one.id,
+    #aws_subnet.eks_pub_sub_two.id]
+  #}
 
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_role_attachment
-  ]
-}
+  #depends_on = [
+   # aws_iam_role_policy_attachment.eks_cluster_role_attachment
+  #]
+#}
 
  #Export the kubeconfig for the EKS cluster
  #output "kubeconfig" {
